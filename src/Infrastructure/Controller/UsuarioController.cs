@@ -14,7 +14,8 @@ public class UsuarioController : ControllerBase
         [FromBody] UsuarioInputDto request)
     {
         var result = await useCase.Handler(request.toDomain());
-        return CreatedAtRoute("GetUsuario", new { id = result.Id });
+        return Ok(result);
+        /* return CreatedAtRoute("GetUsuario", new { id = result.Id }); */
     }
 
     [HttpGet]

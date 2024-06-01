@@ -2,6 +2,8 @@ using CSharpCleanArch.Application.DataTransport.Output;
 using CSharpCleanArch.Application.Mappers;
 using CSharpCleanArch.Application.Repository;
 using CSharpCleanArch.Domain.Entities;
+using CSharpCleanArch.Infrastructure.Database.EntityFramework.Mappers;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace CSharpCleanArch.Infrastructure.Database.EntityFramework.Repository;
@@ -15,14 +17,14 @@ public class UsuarioRepository : IUsuarioRepository
 
     public async Task<Usuario> CreateAsync(Usuario entity)
     {
-        var result = await _context.Usuarios.AddAsync(entity);
-        return result.Entity;
+        var result = await _context.Usuarios.AddAsync(entity.toModel());
+        return result.Entity.toDomain();
     }
 
     public Task DeleteAsync(Usuario entity)
     {
         return Task.Run(() =>
-            _context.Usuarios.Remove(entity)
+            _context.Usuarios.Remove(entity.toModel())
         );
     }
 
@@ -41,15 +43,15 @@ public class UsuarioRepository : IUsuarioRepository
             .FirstOrDefaultAsync(e =>
                 e.Id == id);
 
-        return result;
+        return result?.toDomain();
     }
 
     public Task<Usuario> UpdateAsync(Usuario entity)
     {
         return Task.Run(() =>
         {
-            var result = _context.Usuarios.Update(entity);
-            return result.Entity;
+            var result = _context.Usuarios.Update(entity.toModel());
+            return result.Entity.toDomain();
         });
     }
 }

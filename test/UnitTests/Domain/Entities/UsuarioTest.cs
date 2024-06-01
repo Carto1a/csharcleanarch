@@ -31,9 +31,9 @@ public class UsuarioTest
         usuario.SetEndereco(cep, numero, complemento);
 
         Assert.NotNull(usuario.Endereco);
-        Assert.Equal(cep, usuario.Endereco.cep);
-        Assert.Equal(numero, usuario.Endereco.numero);
-        Assert.Equal(complemento, usuario.Endereco.complemento);
+        Assert.Equal(cep, usuario.Endereco.CEP);
+        Assert.Equal(numero, usuario.Endereco.Numero);
+        Assert.Equal(complemento, usuario.Endereco.Complemento);
     }
 
     [Fact]
