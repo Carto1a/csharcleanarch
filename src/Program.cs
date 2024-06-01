@@ -2,6 +2,8 @@ using CSharpCleanArch.Infrastructure.Database.EntityFramework;
 using CSharpCleanArch.Application;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+configuration.AddJsonFile("appsettings.Local.json");
 
 // Add services to the container.
 
@@ -10,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddEntityFramework(configuration);
 builder.Services.AddApplication();
 
 var app = builder.Build();

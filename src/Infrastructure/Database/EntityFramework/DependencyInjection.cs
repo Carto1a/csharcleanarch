@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore;
 namespace CSharpCleanArch.Infrastructure.Database.EntityFramework;
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(
+    public static IServiceCollection AddEntityFramework(
         this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<DataContext>(options =>
-            options.UseInMemoryDatabase("InMemoryDatabase"));
-            /* options.UseSqlite(configuration.GetConnectionString("SqliteConnection"))); */
+            /* options.UseInMemoryDatabase("InMemoryDatabase")); */
+            options.UseSqlite(configuration.GetConnectionString("Sqlite")));
             /* options.UseSqlServer(configuration.GetConnectionString("SqlServerConnection"))); */
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
