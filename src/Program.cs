@@ -1,5 +1,6 @@
 using CSharpCleanArch.Infrastructure.Database.EntityFramework;
 using CSharpCleanArch.Application;
+using CSharpCleanArch.Infrastructure.Filter;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddExceptionFilter();
 
 builder.Services.AddEntityFramework(configuration);
 builder.Services.AddApplication();

@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 
 using CSharpCleanArch.Domain.Common;
+using CSharpCleanArch.Domain.Validation;
 
 namespace CSharpCleanArch.Domain.Entities;
 public class Usuario : BaseEntity
@@ -33,13 +34,12 @@ public class Usuario : BaseEntity
 
     public Usuario Validate()
     {
-        if (Cpf == null ||
-            !Regex.IsMatch(Cpf, @"^\d{3}\.\d{3}\.\d{3}-\d{2}$"))
-            throw new ArgumentException("CPF inválido");
+        var validation = new DomainValidation("Usuario");
 
-        if (Idade < 18)
-            throw new ArgumentException("Deve ser maior de 18 anos");
+        validation.Cpf(Cpf, nameof(Cpf));
+        validation.MinValue(Idade, 18, nameof(Idade));
 
+        validation.Check();
         return this;
     }
 }
