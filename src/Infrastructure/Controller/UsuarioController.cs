@@ -25,4 +25,23 @@ public class UsuarioController : ControllerBase
         var result = await useCase.Handler();
         return Ok(result);
     }
+
+    [HttpPut("{cpf}")]
+    public async Task<IActionResult> UpdateUsuarioByCpf(
+        [FromServices] UpdateUsuarioByCpfUseCase useCase,
+        [FromBody] UsuarioInputDto request,
+        [FromRoute] string cpf)
+    {
+        var result = await useCase.Handler(cpf, request.toDomain());
+        return Ok(result);
+    }
+
+    [HttpDelete("{cpf}")]
+    public async Task<IActionResult> DeleteByCpf(
+        [FromServices] DeleteUsuarioByCpfUseCase useCase,
+        [FromRoute] string cpf)
+    {
+        await useCase.Handler(cpf);
+        return NoContent();
+    }
 }

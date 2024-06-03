@@ -28,6 +28,11 @@ public class UsuarioRepository : IUsuarioRepository
         );
     }
 
+    public void DeleteByCpf(Usuario entity)
+    {
+        var _ = _context.Usuarios.Remove(entity.toModel());
+    }
+
     public async Task<List<UsuarioOutputDto>> GetAllAsync()
     {
         var result = await _context.Usuarios
@@ -35,6 +40,15 @@ public class UsuarioRepository : IUsuarioRepository
             .Select(e => e.toOutputDto())
             .ToListAsync();
         return result;
+    }
+
+    public async Task<Usuario?> GetByCpfAsync(string cpf)
+    {
+        var result = await _context.Usuarios
+            .FirstOrDefaultAsync(e =>
+                e.Cpf == cpf);
+
+        return result?.toDomain();
     }
 
     public async Task<Usuario?> GetByIdAsync(Guid id)
@@ -53,5 +67,11 @@ public class UsuarioRepository : IUsuarioRepository
             var result = _context.Usuarios.Update(entity.toModel());
             return result.Entity.toDomain();
         });
+    }
+
+    public Usuario UpdateByCpf(Usuario entity)
+    {
+        var result = _context.Usuarios.Update(entity.toModel());
+        return result.Entity.toDomain();
     }
 }

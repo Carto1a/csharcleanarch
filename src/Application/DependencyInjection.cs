@@ -7,6 +7,9 @@ public static class DependencyInjection
     {
         services.AddScoped<CreateUsuarioUseCase>();
         services.AddScoped<GetAllUsuariosUseCase>();
+        /* services.AddScoped<GetUsuarioByCpfUseCase>(); */
+        services.AddScoped<UpdateUsuarioByCpfUseCase>();
+        services.AddScoped<DeleteUsuarioByCpfUseCase>();
 
         return services;
     }

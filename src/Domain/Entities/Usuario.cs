@@ -1,5 +1,3 @@
-using System.Text.RegularExpressions;
-
 using CSharpCleanArch.Domain.Common;
 using CSharpCleanArch.Domain.Validation;
 
